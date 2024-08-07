@@ -11,6 +11,11 @@ Counterfeit pharmaceuticals are a growing problem worldwide, posing significant 
 - [Contributing](#contributing)
 - [License](#license)
 
+  ## Drive link to the presentation slides
+  -
+https://drive.google.com/drive/folders/1Mi8HaMsiKlRT0U1caoN0_w_9INVh5S2Q?usp=drive_link
+
+
 ## Problem Statement
 Counterfeit pharmaceuticals can contain harmful ingredients, leading to adverse health effects or even death. Traditional supply chains lack transparency, data security, and comprehensive traceability, making them vulnerable to the insertion of fake products.
 
