@@ -1,0 +1,44 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract SupplyChain {
+    struct Product {
+        uint id;
+        string name;
+        string manufacturer;
+        uint timestamp;
+        address owner;
+    }
+
+    mapping(uint => Product) public products;
+    mapping(uint => address[]) public productHistory;
+
+    event ProductRegistered(uint id, string name, string manufacturer, uint timestamp, address owner);
+    event OwnershipTransferred(uint id, address from, address to, uint timestamp);
+
+    function registerProduct(uint _id, string memory _name, string memory _manufacturer) public {
+        require(products[_id].id == 0, "Product already exists");
+
+        products[_id] = Product(_id, _name, _manufacturer, block.timestamp, msg.sender);
+        productHistory[_id].push(msg.sender);
+
+        emit ProductRegistered(_id, _name, _manufacturer, block.timestamp, msg.sender);
+    }
+
+    function transferProduct(uint _id, address _newOwner) public {
+        require(products[_id].id != 0, "Product does not exist");
+        require(products[_id].owner == msg.sender, "Only the owner can transfer this product");
+
+        address previousOwner = products[_id].owner;
+        products[_id].owner = _newOwner;
+        productHistory[_id].push(_newOwner);
+
+        emit OwnershipTransferred(_id, previousOwner, _newOwner, block.timestamp);
+    }
+
+    function verifyProduct(uint _id) public view returns (Product memory, address[] memory) {
+        require(products[_id].id != 0, "Product does not exist");
+
+        return (products[_id], productHistory[_id]);
+    }
+}
